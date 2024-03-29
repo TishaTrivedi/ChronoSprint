@@ -61,12 +61,14 @@ public class TileManager : MonoBehaviour
 
 private void SpawnTile(int prefabIndex = -1)
 {
+    theObstacleGenerator = FindObjectOfType<ObstacleGenerator>();
     GameObject go;
     go = Instantiate(tilePrefab[RandomPrefabIndex()], Vector3.forward * spawnZ, Quaternion.identity) as GameObject;
     go.transform.SetParent(transform);
     spawnZ += tileLength;
     activeTiles.Add(go);
-
+    
+    print(theObstacleGenerator);
     theObstacleGenerator.SpawnObstacles(go.transform.position);
     // theCoinGenerator.SpawnCoins(go.transform.position);
 }

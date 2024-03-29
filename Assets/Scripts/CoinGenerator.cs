@@ -41,9 +41,9 @@ public class CoinGenerator : MonoBehaviour
         // Loop through the predefined x-positions to spawn coins
         for (int i = 0; i < coinXPositions.Length; i++)
         {
-            GameObject coin = coinPool.GetPooledObject();
-            coin.transform.position = new Vector3(coinXPositions[i], 3.76f, startPosition.z);
-            coin.SetActive(true);
+            // GameObject coin = coinPool.GetPooledObject();
+            // coin.transform.position = new Vector3(coinXPositions[i], 3.76f, startPosition.z);
+            // coin.SetActive(true);
         }
     }
 }

@@ -4,36 +4,42 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
-    public GameObject pooledObject;
-    public int pooledAmount;
+    public GameObject[] pooledObjects;
+    public int[] pooledAmounts;
 
-    private List<GameObject> pooledObjects;
+    private List<GameObject>[] pools;
 
     void Start()
     {
-        pooledObjects = new List<GameObject>();
+        pools = new List<GameObject>[pooledObjects.Length];
 
-        for(int i = 0; i < pooledAmount; i++)
+        for (int i = 0; i < pooledObjects.Length; i++)
         {
-            GameObject obj = Instantiate(pooledObject);
-            obj.SetActive(false);
-            pooledObjects.Add(obj);
+            pools[i] = new List<GameObject>();
+
+            for (int j = 0; j < pooledAmounts[i]; j++)
+            {
+                GameObject obj = Instantiate(pooledObjects[i]);
+                obj.SetActive(true);
+                pools[i].Add(obj);
+            }
         }
     }
 
-    public GameObject GetPooledObject()
+    public GameObject GetPooledObject(int poolIndex)
     {
-        for(int i = 0; i < pooledObjects.Count; i++)
+        for (int i = 0; i < pools[poolIndex].Count; i++)
         {
-            if(!pooledObjects[i].activeInHierarchy)
+            if (!pools[poolIndex][i].activeInHierarchy)
             {
-                return pooledObjects[i];
+                pools[poolIndex][i].SetActive(true);
+                return pools[poolIndex][i];
             }
         }
 
-        GameObject obj = Instantiate(pooledObject);
-        obj.SetActive(false);
-        pooledObjects.Add(obj);
+        GameObject obj = Instantiate(pooledObjects[poolIndex]);
+        obj.SetActive(true);
+        pools[poolIndex].Add(obj);
         return obj;
     }
 }
