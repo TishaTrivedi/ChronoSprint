@@ -1,50 +1,42 @@
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-
-// public class CoinGenerator : MonoBehaviour
-// {
-//     public ObjectPooler coinPool;
-//     public float distanceBetweenCoins;
-
-//     public void SpawnCoins(Vector3 startPositions)
-//     {
-//         // Get the first coin from the pool
-//         GameObject coin1 = coinPool.GetPooledObject();
-//         coin1.transform.position = startPositions;
-//         coin1.SetActive(true);
-
-//         // Get the second coin from the pool and position it to the left of the first coin
-//         GameObject coin2 = coinPool.GetPooledObject();
-//         coin2.transform.position = new Vector3(startPositions.x - distanceBetweenCoins, startPositions.y, startPositions.z);
-//         coin2.SetActive(true);
-
-//         // Get the third coin from the pool and position it to the right of the first coin
-//         GameObject coin3 = coinPool.GetPooledObject();
-//         coin3.transform.position = new Vector3(startPositions.x + distanceBetweenCoins, startPositions.y, startPositions.z);
-//         coin3.SetActive(true);
-//     }
-// }
 using UnityEngine;
 
 public class CoinGenerator : MonoBehaviour
 {
     public ObjectPooler coinPool;
-    
-    // Define the x-positions where coins can spawn
-    private float[] coinXPositions = { -1.5f, 0f, 1.5f };
+    public float distanceBetweenCoins; // Adjust this value to control spacing
+    public int numberOfCoins;
+    public Vector3[] tileStartPositions;
+    public float tileSizeZ;
+    public float[] coinXPositions = { -1.5f, 0f, 1.5f };
+    public float coinYPosition = 2.0f; // Y position of the coins
+    public float coinZOffset = -10.0f; // Base Z offset
+    public float coinZOffsetRandomRange = 1.0f; // Optional randomness range
 
-    public float distanceBetweenCoins;
-
-    public void SpawnCoins(Vector3 startPosition)
+    public void SpawnCoins(Vector3 playerPosition)
     {
-        // Loop through the predefined x-positions to spawn coins
-        for (int i = 0; i < coinXPositions.Length; i++)
+        float coinSpacing = distanceBetweenCoins * (numberOfCoins + 1); // Increased spacing
+        float coinZ = playerPosition.z + coinZOffset;
+
+        // Optional randomness for Z position
+        if (coinZOffsetRandomRange > 0)
         {
-            // GameObject coin = coinPool.GetPooledObject();
-            // coin.transform.position = new Vector3(coinXPositions[i], 3.76f, startPosition.z);
-            // coin.SetActive(true);
+            coinZ += Random.Range(-coinZOffsetRandomRange / 2f, coinZOffsetRandomRange / 2f);
+        }
+
+        for (int i = 0; i < numberOfCoins; i++)
+        {
+            GameObject coin = coinPool.GetPooledObject(0); // Assuming 0 is the index of your coin prefab
+
+            // Check if the object is null before using it
+            if (coin != null)
+            {
+                float xPosition = playerPosition.x + coinXPositions[Random.Range(0, coinXPositions.Length)];
+                coin.transform.position = new Vector3(xPosition, coinYPosition, coinZ);
+                coin.SetActive(true);
+
+                // Update coinZ for the next coin
+                coinZ += coinSpacing;
+            }
         }
     }
 }
-

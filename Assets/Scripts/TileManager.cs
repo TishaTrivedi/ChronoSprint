@@ -5,73 +5,79 @@ using System.Collections.Generic;
 public class TileManager : MonoBehaviour
 {
     public GameObject[] tilePrefab;
-    [SerializeField] GameObject coinPrefab;
-    private Transform playerTransform;
+    public GameObject coinPrefab;
+    public Transform playerTransform;
+    public Transform mainCameraTransform;
 
     private float spawnZ = 0.0f;
     private float tileLength = 290.0f;
     private int amnTilesOnScreen = 7;
-
     private float safeZone = 300.0f;
     private int lastPrefabIndex = 0;
-
     private List<GameObject> activeTiles;
 
-    private CoinGenerator theCoinGenerator;
+    public float cameraSpeed = 10.0f;
 
-    private ObstacleGenerator theObstacleGenerator;
+    // Reference to the CoinGenerator script
+    public CoinGenerator coinGenerator;
 
-    // Speed at which the tiles move towards the player
-    public float tileMoveSpeed = 10f;
+    // Reference to the ObstacleGenerator script
+    public ObstacleGenerator obstacleGenerator;
 
-    // Start is called before the first frame update
     void Start()
     {
         activeTiles = new List<GameObject>();
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        if (playerTransform != null)
-        {
-            for (int i = 0; i < amnTilesOnScreen; i++)
-            {
-                SpawnTile();
-            }
-        }
-        else
-        {
-            Debug.LogError("Player GameObject not found in the scene!");
-        }
-        // SpawnCoins();
+        mainCameraTransform = Camera.main.transform;
 
-        // theCoinGenerator=FindObjectOfType<CoinGenerator>();
-         theObstacleGenerator = FindObjectOfType<ObstacleGenerator>();
+        if (playerTransform == null)
+        {
+            Debug.LogWarning("Player GameObject not found. Disabling player movement.");
+        }
+
+        // Fetch references to CoinGenerator and ObstacleGenerator scripts
+        coinGenerator = FindObjectOfType<CoinGenerator>();
+        obstacleGenerator = FindObjectOfType<ObstacleGenerator>();
+
+        for (int i = 0; i < amnTilesOnScreen; i++)
+        {
+            SpawnTile();
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Check if the player has moved into the safe zone
-        if (playerTransform.position.z - safeZone > (spawnZ - amnTilesOnScreen * tileLength))
+        mainCameraTransform.Translate(Vector3.forward * cameraSpeed * Time.deltaTime);
+
+        if (mainCameraTransform.position.z - safeZone > (spawnZ - amnTilesOnScreen * tileLength))
         {
             SpawnTile();
             DeleteTile();
         }
 
-        MoveTiles();
+        if (playerTransform != null)
+        {
+            playerTransform.position = new Vector3(playerTransform.position.x, playerTransform.position.y, mainCameraTransform.position.z);
+        }
     }
 
-private void SpawnTile(int prefabIndex = -1)
-{
-    theObstacleGenerator = FindObjectOfType<ObstacleGenerator>();
-    GameObject go;
-    go = Instantiate(tilePrefab[RandomPrefabIndex()], Vector3.forward * spawnZ, Quaternion.identity) as GameObject;
-    go.transform.SetParent(transform);
-    spawnZ += tileLength;
-    activeTiles.Add(go);
-    
-    print(theObstacleGenerator);
-    theObstacleGenerator.SpawnObstacles(go.transform.position);
-    // theCoinGenerator.SpawnCoins(go.transform.position);
-}
+    private void SpawnTile(int prefabIndex = -1)
+    {
+        GameObject go = Instantiate(tilePrefab[RandomPrefabIndex()], Vector3.forward * spawnZ, Quaternion.identity) as GameObject;
+        go.transform.SetParent(transform);
+        spawnZ += tileLength;
+        activeTiles.Add(go);
+
+        if (obstacleGenerator != null)
+        {
+            obstacleGenerator.SpawnObstacles(go.transform.position);
+        }
+
+        if (coinGenerator != null)
+        {
+            coinGenerator.SpawnCoins(go.transform.position);
+        }
+    }
+
     private void DeleteTile()
     {
         Destroy(activeTiles[0]);
@@ -93,22 +99,6 @@ private void SpawnTile(int prefabIndex = -1)
         return randomIndex;
     }
 
-    private void MoveTiles()
-    {
-        // Move all active tiles towards the player
-        foreach (var tile in activeTiles)
-        {
-            // Calculate the direction of movement
-            Vector3 moveDirection = Vector3.back * tileMoveSpeed * Time.deltaTime;
-
-            // Translate the tile
-            tile.transform.Translate(moveDirection);
-        }
-    }
-
-
-
-    // Destroy tiles that are behind the player
     public void DestroyPassedTiles()
     {
         for (int i = 0; i < activeTiles.Count; i++)
@@ -121,6 +111,4 @@ private void SpawnTile(int prefabIndex = -1)
             }
         }
     }
-
-    
 }

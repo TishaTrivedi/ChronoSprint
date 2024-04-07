@@ -3,43 +3,35 @@ using UnityEngine;
 public class AnimationStateController : MonoBehaviour
 {
     Animator animator;
-    public Rigidbody rb; // Rigidbody component
+    Rigidbody rb; // Removed public access as it's assigned in Start() method
     int IsJumpingHash;
     int isRollingHash;
 
     bool wasJumping;
     bool wasRolling;
-    bool isChangingLane = false; // Flag to track if a lane change is in progress
+    bool isChangingLane = false;
 
-    public float laneWidth = 2f; // Width of each lane
-    public float currentXPosition = 0.0f; // Initial X position of the player
-    public float currentLane = 0f; // Current lane (0 for middle, negative for left, positive for right)
-    public float moveSpeed = 10f; // Speed of movement (units per second)
-    public float forwardSpeed =10f; // Forward speed of the player
-    
-    public float speed=10f;
+    public float laneWidth = 2f;
+    public float currentXPosition = 0.0f;
+    public float currentLane = 0f;
+    public float moveSpeed = 10f;
+    public float forwardSpeed = 10f;
+
     void Start()
     {
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>(); // Get the Rigidbody component
+        rb = GetComponent<Rigidbody>();
         IsJumpingHash = Animator.StringToHash("IsJumping");
         isRollingHash = Animator.StringToHash("isRolling");
 
-        // Adjust the initial position based on the starting lane
         currentXPosition = currentLane * laneWidth;
         transform.position = new Vector3(currentXPosition, transform.position.y, transform.position.z);
     }
 
     void Update()
     {
-     UnityEngine.Debug.Log(rb.position);
-//        Vector3 forwardMove = transform.forward * speed * Time.fixedDeltaTime;
+        MoveForward(); // Call method to move player forward
 
-// // Apply forward movement to the Rigidbody's position
-//     rb.MovePosition(rb.position + forwardMove);
-
-
-        // Check for jump input (using arrow keys)
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             wasJumping = true;
@@ -51,7 +43,6 @@ public class AnimationStateController : MonoBehaviour
             animator.SetBool(IsJumpingHash, false);
         }
 
-        // Check for roll input (using arrow keys)
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             wasRolling = true;
@@ -63,63 +54,48 @@ public class AnimationStateController : MonoBehaviour
             animator.SetBool(isRollingHash, false);
         }
 
-        // Check for movement input (using arrow keys) only if not already changing lanes
         if (!isChangingLane)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                MoveLane(-1); // Move left
+                MoveLane(-1);
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                MoveLane(1); // Move right
+                MoveLane(1);
             }
         }
     }
-    void onCollisionEnter(Collision other)
-         {
-            if (other.gameObject.tag== "lethal")
-            {
-                Destroy(gameObject);
-            }
-         }
 
-   void MoveLane(int direction)
-{
-    // Set the flag to indicate a lane change is in progress
-    isChangingLane = true;
+    void MoveForward()
+    {
+        // Move the player forward
+        Vector3 forwardMove = transform.forward * forwardSpeed * Time.deltaTime;
+        transform.position += forwardMove;
+    }
 
-    // Calculate the target lane
-    float targetLane = currentLane + direction;
+    void MoveLane(int direction)
+    {
+        isChangingLane = true;
 
-    // Clamp the target lane to stay within the available lanes
-    targetLane = Mathf.Clamp(targetLane, -1, 1);
+        float targetLane = currentLane + direction;
+        targetLane = Mathf.Clamp(targetLane, -1, 1);
+        float targetX = targetLane * laneWidth;
+        currentLane = targetLane;
 
-    // Calculate the target position based on the lane width
-    float targetX = targetLane * laneWidth;
+        targetX = Mathf.Clamp(targetX, -4.48f, 4.48f);
+        currentXPosition = targetX;
 
-    // Update the current lane
-    currentLane = targetLane;
+        transform.position = new Vector3(currentXPosition, transform.position.y, transform.position.z);
 
-    // Clamp the target X position to stay within the screen boundaries
-    targetX = Mathf.Clamp(targetX, -4.48f, 4.48f); // Adjust the range based on your screen size and player position
+        isChangingLane = false;
+    }
 
-    // Update the current X position
-    currentXPosition = targetX;
-
-    // Move the player to the target position while maintaining the Z-axis position
-    transform.position = new Vector3(currentXPosition, transform.position.y, transform.position.z);
-
-    // Reset the flag to allow for another lane change
-    isChangingLane = false;
-}
-
-
-
-    // private void FixedUpdate()
-    // {
-    //     // Move the player forward
-    //     Vector3 forwardMove = transform.forward * forwardSpeed * Time.fixedDeltaTime;
-    //     rb.MovePosition(rb.position + forwardMove);
-    // }
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "lethal")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
