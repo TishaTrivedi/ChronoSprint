@@ -13,16 +13,18 @@ public class Obstacle : MonoBehaviour
             // Check if the ScoreManager script is not null
             if (scoreManager != null)
             {
-                // Stop the game and display the score
+                // Stop the game
+                Time.timeScale = 0;
+
+                // Set score increasing to false
                 scoreManager.scoreIncreasing = false;
 
-                // Call the GameOver method in MenuController to display the final score and reload the scene
-                //    MenuController menuController = FindObjectOfType<MenuController>();
-                //    if (menuController != null)
-                //    {
-                //        menuController.GameOver(Mathf.RoundToInt(scoreManager.scoreCount));
-                //    }
-                //}
+                // Find GameManager and trigger GameOver if it exists
+                GameManager gameManager = FindObjectOfType<GameManager>();
+                if (gameManager != null)
+                {
+                    gameManager.GameOver();
+                }
             }
         }
     }
