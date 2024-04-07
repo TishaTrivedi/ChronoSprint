@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         isGameOver = false; // Ensure game starts with game not over
+        
     }
 
     public void GameOver()
@@ -45,9 +46,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void RestartGame() // Uncommented and added functionality
+    public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload current scene
-                                                                    // Alternatively, you can load a dedicated "Game Over" scene
+        SceneManager.LoadScene("TryScene");
+        Debug.Log("Restarting Game!");// Reload current scene
     }
 }
