@@ -14,6 +14,7 @@ public class ObstacleGenerator : MonoBehaviour
     public void SpawnObstacles(Vector3 playerPosition)
     {
         float obstacleZ = playerPosition.z + obstacleZOffset;
+        Debug.Log("Calculated obstacle Z position: " + obstacleZ);
 
         // Optional randomness for Z position
         if (obstacleZOffsetRandomRange > 0)

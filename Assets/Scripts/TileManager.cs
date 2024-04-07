@@ -10,9 +10,9 @@ public class TileManager : MonoBehaviour
     public Transform mainCameraTransform;
 
     private float spawnZ = 0.0f;
-    private float tileLength = 290.0f;
+    private float tileLength =500.0f;
     private int amnTilesOnScreen = 7;
-    private float safeZone = 300.0f;
+    private float safeZone = 510.0f;
     private int lastPrefabIndex = 0;
     private List<GameObject> activeTiles;
 

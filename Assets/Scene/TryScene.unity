@@ -264,9 +264,7 @@ MonoBehaviour:
   pooledObjects:
   - {fileID: 5937744244697047069, guid: 38a02eac689ab6c4ea8e39ab1c5ef361, type: 3}
   - {fileID: 5083385160874481277, guid: aad764f25fc89a14380b2c7611121452, type: 3}
-  - {fileID: 5937744244697047069, guid: 38a02eac689ab6c4ea8e39ab1c5ef361, type: 3}
-  - {fileID: 388374313228756511, guid: ef2968b4e096cd64e941a2298b7828c4, type: 3}
-  pooledAmounts: 0a0000000a0000000a0000000a000000
+  pooledAmounts: 0a0000000a000000
 --- !u!4 &277564562
 Transform:
   m_ObjectHideFlags: 0
@@ -787,6 +785,54 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1442621086}
   m_SourcePrefab: {fileID: 100100000, guid: b75b9cb1d114d7e468615a0a70fe38e7, type: 3}
+--- !u!1 &1327452292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1327452294}
+  - component: {fileID: 1327452293}
+  m_Layer: 0
+  m_Name: GameOver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1327452293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327452292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f3a9053500053498627332988a6269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameOver: 0
+  gameOverUIprefab: {fileID: 6102276701488826115, guid: e94ae73f241567c4e9a5bd187d5fb95c, type: 3}
+  finalScore: 0
+  highScore: 0
+--- !u!4 &1327452294
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327452292}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8488856, z: 0.007325053}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1419055424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1078,7 @@ MonoBehaviour:
   currentXPosition: 0
   currentLane: 0
   moveSpeed: 10
-  forwardSpeed: 10
+  forwardSpeed: 35
 --- !u!1 &1806071595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,16 +1172,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePool: {fileID: 277564561}
-  distanceBetweenObstacles: 0.6
+  distanceBetweenObstacles: 1
   numberOfObstacles: 50
   tileStartPositions: []
-  tileSizeZ: 0
+  tileSizeZ: 100
   obstacleXPositions:
   - -1.5
   - 0
   - 1.5
-  obstacleZOffset: -10
-  obstacleZOffsetRandomRange: 1
+  obstacleZOffset: -30
+  obstacleZOffsetRandomRange: 30
 --- !u!1 &2129262873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,3 +1272,4 @@ SceneRoots:
   - {fileID: 148713002}
   - {fileID: 1232206853}
   - {fileID: 1441458172}
+  - {fileID: 1327452294}
