@@ -24,7 +24,7 @@ public class ObstacleGenerator : MonoBehaviour
 
         for (int i = 0; i < numberOfObstacles; i++)
         {
-            GameObject obstacle = obstaclePool.GetPooledObject(Random.Range(0, 2));
+            GameObject obstacle = obstaclePool.GetPooledObject(Random.Range(0, obstaclePool.pooledObjects.Length)); // Corrected line
             float xPosition = playerPosition.x + obstacleXPositions[Random.Range(0, obstacleXPositions.Length)];
             obstacle.transform.position = new Vector3(xPosition, playerPosition.y + 2, obstacleZ);
             obstacle.SetActive(true);
