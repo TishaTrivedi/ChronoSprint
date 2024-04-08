@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4899913663863461765}
   - component: {fileID: 570803003810599069}
   - component: {fileID: 8859853837306343675}
+  - component: {fileID: 8239267309381981701}
+  - component: {fileID: 6530179867947080197}
   m_Layer: 0
   m_Name: Props_Traffic Control Barrier Fence
   m_TagString: Untagged
@@ -30,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.47042, z: -0.00000009935}
-  m_LocalScale: {x: 0.54019034, y: 0.99, z: 0.54019034}
+  m_LocalScale: {x: 0.56, y: 0.99, z: 0.54019034}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -104,8 +106,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.6, y: 2.047512, z: 0.20000002}
-  m_Center: {x: 0, y: 1.0230794, z: -0.00000026077032}
+  m_Size: {x: 3.64, y: 0.49, z: 0.20000002}
+  m_Center: {x: 0, y: 1.9, z: -0.00000026077032}
 --- !u!114 &8859853837306343675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,3 +120,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56fc9892c6a53094a8e88549c9a02ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &8239267309381981701
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388374313228756511}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.38, y: 2.0475118, z: 0.2}
+  m_Center: {x: -1.38, y: 1.0230793, z: -0.0000002607703}
+--- !u!65 &6530179867947080197
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388374313228756511}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3, y: 2.09, z: 0.2}
+  m_Center: {x: 1.31, y: 1.0230793, z: -0.0000002607703}

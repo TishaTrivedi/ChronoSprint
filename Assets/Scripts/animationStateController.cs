@@ -16,6 +16,7 @@ public class AnimationStateController : MonoBehaviour
     public float currentLane = 0f;
     public float moveSpeed = 10f;
     public float forwardSpeed = 10f;
+    [SerializeField] public float jumpForce = 25.0f;
 
     void Start()
     {
@@ -36,11 +37,14 @@ public class AnimationStateController : MonoBehaviour
         {
             wasJumping = true;
             animator.SetBool(IsJumpingHash, true);
+            
+            //rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
         else if (Input.GetKeyUp(KeyCode.UpArrow) && wasJumping)
         {
             wasJumping = false;
             animator.SetBool(IsJumpingHash, false);
+            rb.AddForce(Vector3.up * 1000);
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))

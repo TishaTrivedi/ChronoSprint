@@ -184,6 +184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 148713002}
+  - component: {fileID: 148713003}
   m_Layer: 0
   m_Name: CoinGenerator
   m_TagString: Player
@@ -207,6 +208,30 @@ Transform:
   - {fileID: 1806071597}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &148713003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148713000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9da5a7b9895fa4aa9510b07b1d174e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinPool: {fileID: 1806071598}
+  distanceBetweenCoins: 0.5
+  numberOfCoins: 50
+  tileStartPositions: []
+  tileSizeZ: 0
+  coinXPositions:
+  - -1.5
+  - 0
+  - 1.5
+  coinYPosition: 2.5
+  coinZOffset: -10
+  coinZOffsetRandomRange: 1
 --- !u!1 &277564560
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,10 +278,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pooledObjects:
   - {fileID: 6227733222395719590, guid: bb35332459ccbe141b7b382864d05aa4, type: 3}
-  - {fileID: 5083385160874481277, guid: aad764f25fc89a14380b2c7611121452, type: 3}
   - {fileID: 5937744244697047069, guid: 38a02eac689ab6c4ea8e39ab1c5ef361, type: 3}
-  - {fileID: 4052847768251100098, guid: d15a6f8bb3fca5f429822c721e4bd97a, type: 3}
-  pooledAmounts: 0f0000000f0000000f0000000f000000
+  - {fileID: 388374313228756511, guid: ef2968b4e096cd64e941a2298b7828c4, type: 3}
+  pooledAmounts: 0f0000000f0000000f000000
 --- !u!1 &340455619
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,7 +956,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.8
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -1008,6 +1032,7 @@ MonoBehaviour:
   currentLane: 0
   moveSpeed: 10
   forwardSpeed: 15
+  jumpForce: 20
 --- !u!1 &1806071595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,6 +1042,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1806071597}
+  - component: {fileID: 1806071598}
   m_Layer: 0
   m_Name: CoinPool
   m_TagString: Untagged
@@ -1039,6 +1065,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 148713002}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1806071598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806071595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1284df72a38fc874b9a47dcb5ce04dc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects:
+  - {fileID: 2803790638648392690, guid: c2c0af52bbba46048acdc215d0db15de, type: 3}
+  pooledAmounts: 32000000
 --- !u!1 &1947250868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,7 +1125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56424fee0d8e5ed42bdca141fec9a261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePool: {fileID: 0}
+  obstaclePool: {fileID: 277564563}
   distanceBetweenObstacles: 15
   numberOfObstacles: 30
   tileStartPositions: []
@@ -1185,7 +1226,7 @@ PrefabInstance:
     - target: {fileID: 4575833005271669082, guid: 19307f2347392cb46a191479a4d76666, type: 3}
       propertyPath: gameOverUIprefab
       value: 
-      objectReference: {fileID: 6415103122179669218, guid: cd3a583ae189a7648a046c8286fcf950, type: 3}
+      objectReference: {fileID: 6102276701488826115, guid: e94ae73f241567c4e9a5bd187d5fb95c, type: 3}
     - target: {fileID: 4698991613917260156, guid: 19307f2347392cb46a191479a4d76666, type: 3}
       propertyPath: m_Name
       value: GameOver
