@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
         
     }
 
+
+
     public void GameOver()
     {
         isGameOver = true;
@@ -36,8 +38,14 @@ public class GameManager : MonoBehaviour
 
                 // Update Text elements in the UI
                 //gameOverUI.GetComponentInChildren<Text>().text = "Game Over!";
-                gameOverUI.GetComponentInChildren<Text>().text = "<b>Game Over!</b>\nScore: " + Mathf.Round(highScore);
+                gameOverUI.GetComponentInChildren<Text>().text = "<b>Game Over</b>\nScore: " + Mathf.Round(finalScore);
+                RectTransform textRectTransform = gameOverUI.GetComponentInChildren<Text>().GetComponent<RectTransform>();
 
+                // Adjust height to accommodate two lines (optional)
+                textRectTransform.sizeDelta = new Vector2(textRectTransform.sizeDelta.x, 25);
+
+                // Adjust vertical positioning of the text within its parent
+                textRectTransform.offsetMin = new Vector2(textRectTransform.offsetMin.x, 25); // Replace with estimated line height
             }
             else
             {
@@ -48,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("TryScene");
+        SceneManager.LoadScene("MainMenu");
         Debug.Log("Restarting Game!");// Reload current scene
     }
 }

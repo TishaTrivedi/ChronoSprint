@@ -10,7 +10,9 @@ public class MenuController : MonoBehaviour
     
     public void LoadScene()
     {
-        SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
+        //SceneManager.LoadScene(sceneName,LoadSceneMode.Single)
+        SceneManager.LoadScene("TryScene");
+
     }
 
 }
